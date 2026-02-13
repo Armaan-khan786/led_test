@@ -10,17 +10,32 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - uses: actions/checkout@v4
+      # 1️⃣ Checkout the repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Check Python
+      # 2️⃣ Install Python dependencies using full path
+      - name: Install Python dependencies
         run: |
-          & "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" --version
+          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install --upgrade pip
+          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install robotframework pyserial
 
-      - name: Install packages
+      # 3️⃣ Optional: Add Arduino CLI to PATH (if you use it in scripts)
+      - name: Add Arduino CLI to PATH
         run: |
-          & "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install robotframework
-          & "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install pyserial
+          echo "C:\Users\a7577\Desktop\led_test" >> $env:PATH
 
-      - name: Run Robot Test
+      # 4️⃣ Run the Robot Framework tests
+      - name: Run Robot Hardware Test
         run: |
-          & "C:\Users\a7577\AppData\Local\Programs\Python\Python314\Scripts\robot.exe" test.robot
+          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m robot test.robot
+
+      # 5️⃣ Upload Robot Reports as artifacts
+      - name: Upload Robot Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-report
+          path: |
+            output.xml
+            log.html
+            report.html
