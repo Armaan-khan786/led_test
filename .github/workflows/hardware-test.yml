@@ -14,13 +14,13 @@ jobs:
 
       - name: Check Python
         run: |
-          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" --version
+          & "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" --version
 
       - name: Install packages
         run: |
-          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install robotframework
-          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install pyserial
+          & "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install robotframework
+          & "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install pyserial
 
       - name: Run Robot Test
         run: |
-          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\Scripts\robot.exe" test.robot
+          & "C:\Users\a7577\AppData\Local\Programs\Python\Python314\Scripts\robot.exe" test.robot
