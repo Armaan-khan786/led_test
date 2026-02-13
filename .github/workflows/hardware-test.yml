@@ -10,39 +10,15 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install Python dependencies
+      - name: Check Python
+        run: "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" --version
+
+      - name: Install packages
         run: |
-          python --version
-          pip install robotframework
-          pip install pyserial
+          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install robotframework
+          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install pyserial
 
-      - name: Compile Receiver ESP32
-        run: .\arduino-cli.exe compile --fqbn esp32:esp32:esp32 receiver
-
-      - name: Compile Sender ESP32
-        run: .\arduino-cli.exe compile --fqbn esp32:esp32:esp32 sender
-
-      - name: Flash Receiver (COM7)
-        run: .\arduino-cli.exe upload -p COM7 --fqbn esp32:esp32:esp32 receiver
-
-      - name: Flash Sender (COM6)
-        run: .\arduino-cli.exe upload -p COM6 --fqbn esp32:esp32:esp32 sender
-
-      - name: Wait for Boards to Boot
-        run: timeout /t 10
-
-      - name: Run Robot Hardware Test
-        run: robot test.robot
-
-      - name: Upload Robot Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: robot-report
-          path: |
-            output.xml
-            log.html
-            report.html
+      - name: Run Robot Test
+        run: "C:\Users\a7577\AppData\Local\Programs\Python\Python314\Scripts\robot.exe" test.robot
