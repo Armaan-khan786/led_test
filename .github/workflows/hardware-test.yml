@@ -1,0 +1,56 @@
+name: ESP32 Hardware Robot Test
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  hardware-test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: |
+          pip install robotframework
+          pip install pyserial
+
+      - name: Compile Receiver ESP32
+        run: |
+          .\arduino-cli.exe compile --fqbn esp32:esp32:esp32 receiver
+
+      - name: Compile Sender ESP32
+        run: |
+          .\arduino-cli.exe compile --fqbn esp32:esp32:esp32 sender
+
+      - name: Flash Receiver (COM7)
+        run: |
+          .\arduino-cli.exe upload -p COM7 --fqbn esp32:esp32:esp32 receiver
+
+      - name: Flash Sender (COM6)
+        run: |
+          .\arduino-cli.exe upload -p COM6 --fqbn esp32:esp32:esp32 sender
+
+      - name: Wait for Boards to Boot
+        run: timeout /t 10
+
+      - name: Run Robot Hardware Test
+        run: robot test.robot
+
+      - name: Upload Robot Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-report
+          path: |
+            output.xml
+            log.html
+            report.html
