@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.14.2 on win32)" generated="2026-02-13T10:42:14.526848" rpa="false" schemaversion="5">
+<suite id="s1" name="Test" source="C:\Users\a7577\Desktop\led_test\test.robot">
+<test id="s1-t1" name="Boot Test" line="6">
+<kw name="Send Command" owner="serial_lib">
+<msg time="2026-02-13T10:42:29.588101" level="INFO">${data} = RUNNING
+</msg>
+<var>${data}</var>
+<arg>PING</arg>
+<status status="PASS" start="2026-02-13T10:42:19.579551" elapsed="10.008625"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${data}</arg>
+<arg>RUNNING</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-02-13T10:42:29.588575" elapsed="0.000576"/>
+</kw>
+<status status="PASS" start="2026-02-13T10:42:19.578602" elapsed="10.010809"/>
+</test>
+<test id="s1-t2" name="LED ON Test" line="10">
+<kw name="Send Command" owner="serial_lib">
+<msg time="2026-02-13T10:42:30.093093" level="INFO">${data} = LED_IS_ON
+</msg>
+<var>${data}</var>
+<arg>LED_ON</arg>
+<status status="PASS" start="2026-02-13T10:42:29.591673" elapsed="0.501479"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${data}</arg>
+<arg>LED_IS_ON</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" start="2026-02-13T10:42:30.093591" elapsed="0.000729"/>
+</kw>
+<status status="PASS" start="2026-02-13T10:42:29.589801" elapsed="0.504842"/>
+</test>
+<test id="s1-t3" name="Fail Case Test" line="14">
+<kw name="Send Command" owner="serial_lib">
+<msg time="2026-02-13T10:42:30.596831" level="INFO">${data} = ERROR
+</msg>
+<var>${data}</var>
+<arg>BAD_CMD</arg>
+<status status="PASS" start="2026-02-13T10:42:30.095583" elapsed="0.501298"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<msg time="2026-02-13T10:42:30.598053" level="FAIL">'ERROR
+' does not contain 'SUCCESS'</msg>
+<arg>${data}</arg>
+<arg>SUCCESS</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="FAIL" start="2026-02-13T10:42:30.597243" elapsed="0.000990">'ERROR
+' does not contain 'SUCCESS'</status>
+</kw>
+<status status="FAIL" start="2026-02-13T10:42:30.095145" elapsed="0.503508">'ERROR
+' does not contain 'SUCCESS'</status>
+</test>
+<status status="FAIL" start="2026-02-13T10:42:14.528551" elapsed="16.070882"/>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Test" id="s1" pass="2" fail="1" skip="0">Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
