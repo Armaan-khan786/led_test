@@ -14,21 +14,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Install Python dependencies using full path
+      # 2️⃣ Install Python dependencies (fixed for PowerShell with &)
       - name: Install Python dependencies
         run: |
-          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install --upgrade pip
-          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install robotframework pyserial
+          & "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install --upgrade pip
+          & "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m pip install robotframework pyserial
 
-      # 3️⃣ Optional: Add Arduino CLI to PATH (if you use it in scripts)
+      # 3️⃣ Optional: Add Arduino CLI to PATH
       - name: Add Arduino CLI to PATH
         run: |
-          echo "C:\Users\a7577\Desktop\led_test" >> $env:PATH
+          $env:PATH += ";C:\Users\a7577\Desktop\led_test"
 
       # 4️⃣ Run the Robot Framework tests
       - name: Run Robot Hardware Test
         run: |
-          "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m robot test.robot
+          & "C:\Users\a7577\AppData\Local\Programs\Python\Python314\python.exe" -m robot test.robot
 
       # 5️⃣ Upload Robot Reports as artifacts
       - name: Upload Robot Report
